@@ -12,8 +12,20 @@ const SignUpForm = () => {
         formState: { errors, isValid },
     } = useForm({ mode: 'onChange', resolver: yupResolver(schema[1]) });
 
+    const onSubmitSignUp = handleSubmit(async (data) => {
+        try {
+            const res = await AuthApi.signUp(data.email, data.pw);
+            if (res && res.status === 200) {
+                console.log(res);
+            }
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
     return (
-        <form onSubmit={handleSubmit()}>
+        <form onSubmit={handleSubmit(onSubmitSignUp)}>
             {signUpStep[0].map((el) => (
                 <XXInput
                     label={el.label}
