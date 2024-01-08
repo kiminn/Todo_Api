@@ -65,6 +65,7 @@ const Header = styled.div`
     background: ${({ theme }) => theme.COLORS.primary[700]};
 
     & > div {
+        font-size: ${({ theme }) => theme.FONT_SIZE.medium};
         width: 50%;
         ${flexCenter}
         cursor: pointer;

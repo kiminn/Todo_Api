@@ -3,11 +3,12 @@ import styled from 'styled-components';
 const InputBox = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 10px 0 10px 0;
+    margin: 10px 0px;
     & > input {
-        width: 200px;
+        width: 240px;
+        font-size: ${({ theme }) => theme.FONT_SIZE.small};
         box-sizing: border-box;
-        padding: 10px 10px;
+        padding: 10px;
         border-radius: 8px;
         border: none;
         background-color: ${({ theme }) => theme.COLORS.gray[100]};
@@ -19,13 +20,14 @@ const InputBox = styled.div`
 `;
 
 const Label = styled.label`
-    font-size: 18px;
+    font-size: ${({ theme }) => theme.FONT_SIZE.small};
 `;
 
 const ValidateMessage = styled.p`
-    margin: 0px;
-    color: ${({ theme }) => theme.COLORS.error};
-    font-size: ${({ theme }) => theme.FONT_SIZE.small};
+    padding: 5px;
+    max-width: 240px;
+    color: ${({ theme }) => theme.COLORS.gray[500]};
+    font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
 `;
 
 export const S = {

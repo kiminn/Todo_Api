@@ -28,10 +28,10 @@ const sizeCSS = {
         width: 150px;
     `,
     large: css`
-        // font-size: ${({ theme }) => theme.FONT_SIZE.large};
+        font-size: ${({ theme }) => theme.FONT_SIZE.medium};
         font-weight: ${({ theme }) => theme.FONT_WEIGHT.bold};
         height: 40px;
-        width: 200px;
+        width: 240px;
     `,
 };
 

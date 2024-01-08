@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { signUpStep } from '../../../consts/sign-up-step';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../../utils/schema';
+import AuthApi from '../../../apis/auth.api';
 
 const SignUpForm = () => {
     const {
@@ -13,22 +14,24 @@ const SignUpForm = () => {
     } = useForm({ mode: 'onChange', resolver: yupResolver(schema[1]) });
 
     const onSubmitSignUp = handleSubmit(async (data) => {
+        console.log('signInData', data);
         try {
-            const res = await AuthApi.signUp(data.email, data.pw);
+            const res = await AuthApi.signUp(data.email, data.password);
             if (res && res.status === 200) {
                 console.log(res);
             }
-            return response;
+            return res;
         } catch (error) {
             console.error(error);
         }
     });
 
     return (
-        <form onSubmit={handleSubmit(onSubmitSignUp)}>
+        <form onSubmit={onSubmitSignUp}>
             {signUpStep[0].map((el) => (
                 <XXInput
                     label={el.label}
+                    key={el.id}
                     id={el.id}
                     type={el.type}
                     placeholder={el.placeholder}

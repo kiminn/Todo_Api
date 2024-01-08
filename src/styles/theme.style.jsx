@@ -6,7 +6,7 @@ const COLORS = {
     },
     white: '#FFFFFF',
     black: '#0F0F0F',
-    error: '#ED2939',
+    error: '#FFFF00',
     mint: '#60FFC2',
     gray: {
         100: '#EBECF0',
@@ -16,8 +16,9 @@ const COLORS = {
 };
 
 const FONT_SIZE = {
-    small: '12px',
-    medium: '18px',
+    xsmall: '12px',
+    small: '14px',
+    medium: '16px',
     large: '30px',
 };
 
