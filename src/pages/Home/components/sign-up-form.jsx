@@ -1,10 +1,10 @@
 import XXButton from '../../../components/Button';
 import XXInput from '../../../components/Input';
 import { useForm } from 'react-hook-form';
-import { signUpStep } from '../../../consts/sign-up-step';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../../utils/schema';
 import AuthApi from '../../../apis/auth.api';
+import { signInUp } from '../../../consts/sign-in-up';
 
 const SignUpForm = () => {
     const {
@@ -28,7 +28,7 @@ const SignUpForm = () => {
 
     return (
         <form onSubmit={onSubmitSignUp}>
-            {signUpStep[0].map((el) => (
+            {signInUp[1].map((el) => (
                 <XXInput
                     label={el.label}
                     key={el.id}

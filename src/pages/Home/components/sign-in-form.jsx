@@ -1,10 +1,10 @@
 import XXButton from '../../../components/Button';
 import XXInput from '../../../components/Input';
 import { useForm } from 'react-hook-form';
-import { signInStep } from '../../../consts/sign-in-step';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../../utils/schema';
 import AuthApi from '../../../apis/auth.api';
+import { signInUp } from '../../../consts/sign-in-up';
 
 const SignInForm = () => {
     const {
@@ -29,7 +29,7 @@ const SignInForm = () => {
 
     return (
         <form onSubmit={onSubmitSignIn}>
-            {signInStep[0].map((el) => (
+            {signInUp[0].map((el) => (
                 <XXInput
                     label={el.label}
                     key={el.id}
@@ -49,3 +49,14 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
+
+/**
+ * isValid는 현재 폼이 유효한지 여부를 나타내는 불리언 값
+ * 이 값에 따라 Submit 버튼이 활성화되거나 비활성화됩니다.
+ * 이를 통해 사용자가 유효한 데이터만을 서버로 전송할 수 있도록 할 수 있습니다.
+ *
+ * react-hook-form 라이브러리에서 register는 입력 요소(예: input, select, textarea 등)를 폼 상태로 등록하는 데 사용되는 메서드입니다.
+ * 이 메서드를 사용하면 입력 요소의 값을 추적하고, 유효성 검사 및 다른 폼 상태와 연결할 수 있습니다.
+ *
+ * handleSubmit form의 제출 이벤트 처리
+ */

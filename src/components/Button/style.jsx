@@ -31,7 +31,7 @@ const sizeCSS = {
         font-size: ${({ theme }) => theme.FONT_SIZE.medium};
         font-weight: ${({ theme }) => theme.FONT_WEIGHT.bold};
         height: 40px;
-        width: 240px;
+        width: 260px;
     `,
 };
 
@@ -47,8 +47,8 @@ const shapeCSS = {
 export const Button = styled.button`
     ${({ variant }) => variantCSS[variant]}
     ${({ size }) => sizeCSS[size]}
-  ${({ shape }) => shapeCSS[shape]}
-  padding: 8px 16px;
+    ${({ shape }) => shapeCSS[shape]}
+    padding: 10px 16px;
     border: none;
     cursor: pointer;
     -webkit-transition: all 200ms linear;

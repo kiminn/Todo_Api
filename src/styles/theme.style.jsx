@@ -17,8 +17,8 @@ const COLORS = {
 
 const FONT_SIZE = {
     xsmall: '12px',
-    small: '14px',
-    medium: '16px',
+    small: '16px',
+    medium: '18px',
     large: '30px',
 };
 
