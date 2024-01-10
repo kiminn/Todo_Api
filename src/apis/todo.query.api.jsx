@@ -1,9 +1,12 @@
+import useMutateData from '../hooks/use-mutate-data';
 import TodoApi from './todo.api';
 
 const TodoQueryApi = {
-    deleteTodo: (id, successFn) => 
-    useMutateData(() => TodoApi.deleteTodo(id), [QueryKey.todoData, id], successFn),
+    deleteTodo: (todoId, successFn) =>
+        useMutateData(() => TodoApi.deleteTodo(todoId), [QueryKey.todoData, todoId], successFn),
+    addTodo: (todo) => {
+        useMutateData(() => TodoApi.addTodo(todo), [QueryKey.productRegister]);
+    },
 };
 
 export default TodoQueryApi;
-
