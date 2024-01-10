@@ -101,6 +101,7 @@ https://react.dev/reference/react/useMemo#skipping-re-rendering-of-components
 ---
 
 ### 낙관적 업데이트
+https://tanstack.com/query/v4/docs/react/guides/optimistic-updates
 </br>
 요청이 성공할 것이라고 낙관적으로 보고 화면을 먼저 갱신한 다음 서버에 요청을 보내는 것이다. 
 </br>

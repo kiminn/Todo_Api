@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import TokenRepository from '../repositories/token-repository';
 
 const AuthContext = createContext();

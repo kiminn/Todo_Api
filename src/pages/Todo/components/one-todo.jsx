@@ -2,14 +2,35 @@ import styled from 'styled-components';
 import editIcon from '../../../images/pencil-2.png';
 import closeIcon from '../../../images/cross-2.png';
 import { useRef, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import TodoQueryApi from '../../../apis/todo.query.api';
+import QueryKey from '../../../consts/query-key';
+import { useNavigate } from 'react-router-dom';
 
 const OneTodo = ({ todo, todoList, setTodoList }) => {
     const [isEdit, setIsEdit] = useState(false);
     const todoContentInput = useRef(null);
+    const navigate = useNavigate();
 
-    const onDeleteTodo = (el) => {
-        const delete_list = todoList.filter((item) => item.id !== el);
-        setTodoList(delete_list);
+    // const onDeleteTodo = (el) => {
+    //     const delete_list = todoList.filter((item) => item.id !== el);
+    //     setTodoList(delete_list);
+    // };
+
+    const queryClient = useQueryClient();
+    const deleteData = TodoQueryApi.deleteTodo(id, () => queryClient.invalidateQueries([QueryKey.todoData]));
+
+    // queryClient.invalidateQueries 함수는 캐시된 쿼리를 무효화!!하고
+    // 해당 쿼리를 다시 불러오도록 트리거하는 데 사용됩니다.
+    // 이 함수는 데이터가 업데이트되었거나 변경된 경우, 수동으로 쿼리를 다시 불러오기 위해 사용됩니다.
+    // 이는 데이터 업데이트 및 UI의 즉각적인 반영을 쉽게 처리할 수 있는 강력한 메커니즘 중 하나입니다.
+
+    const onDeleteTodo = () => {
+        deleteData.mutateAsync();
+        alert('지웁니다?');
+        setTimeout(() => {
+            navigate('/todo');
+        }, 1500);
     };
 
     const onEditTodo = (el) => {
@@ -30,7 +51,7 @@ const OneTodo = ({ todo, todoList, setTodoList }) => {
                 {isEdit ? <EditInput defaultValue={todo.content} ref={todoContentInput} /> : todo.content}
             </ContentBox>
             <IconBox>
-                <EditIcon src={editIcon} onClick={() => onEditTodo(todo.id)} />
+                <EditIcon src={editIcon} onClick={() => onEditTodo()} />
                 <DeleteIcon src={closeIcon} onClick={() => onDeleteTodo(todo.id)} />
             </IconBox>
         </Wrapper>

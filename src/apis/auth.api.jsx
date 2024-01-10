@@ -20,6 +20,7 @@ const AuthApi = {
             email,
             pw: password,
         });
+        console.log(res.data);
         return res.data;
     },
 

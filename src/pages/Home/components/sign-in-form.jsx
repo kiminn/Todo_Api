@@ -5,6 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../../utils/schema';
 import AuthApi from '../../../apis/auth.api';
 import { signInUp } from '../../../consts/sign-in-up';
+import { useAuth } from '../../../context/auth.ctx';
+import { useNavigate } from 'react-router-dom';
 
 const SignInForm = () => {
     const {
@@ -14,13 +16,16 @@ const SignInForm = () => {
         formState: { errors, isValid },
     } = useForm({ mode: 'onChange', resolver: yupResolver(schema[0]) });
 
+    const { signIn } = useAuth();
+    const navigate = useNavigate();
+
     const onSubmitSignIn = handleSubmit(async (data) => {
-        console.log('data', data);
         try {
             const res = await AuthApi.signIn(data.email, data.password);
-            if (res && res.status === 200) {
-                console.log(res);
-            }
+            console.log('res', res);
+            signIn(res.token);
+            console.log(res.token);
+            navigate('/todo');
             return res;
         } catch (error) {
             console.error(error);
