@@ -5,10 +5,14 @@ import styled from 'styled-components';
 import { flexAlignCenter, positionCenter } from '../../styles/common.style';
 import TodoModal from './components/todo-modal';
 import plusIcon from '../../images/plus.png';
+import { useQuery } from 'react-query';
+import QueryKey from '../../consts/query-key';
+import TodoApi from '../../apis/todo.api';
 
 const Todo = () => {
-    const [todoList, setTodoList] = useState([]);
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const { data } = useQuery([QueryKey.todoData], () => TodoApi.getTodo());
+    console.log('todoData', data?.data);
 
     const handleOpenModal = () => {
         setIsOpenModal(true);
@@ -16,20 +20,22 @@ const Todo = () => {
 
     return (
         <>
-            <Wrapper>
-                <Container>
-                    <TodoHead todoList={todoList} />
-                    <TodoContainer>
-                        {todoList.map((todo) => (
-                            <OneTodo todo={todo} todoList={todoList} setTodoList={setTodoList} />
-                        ))}
-                    </TodoContainer>
-                    <Button onClick={handleOpenModal}>
-                        <img src={plusIcon} />
-                    </Button>
-                </Container>
-            </Wrapper>
-            {isOpenModal && <TodoModal setIsOpenModal={setIsOpenModal} setTodoList={setTodoList} />}
+            {data && (
+                <Wrapper>
+                    <Container>
+                        <TodoHead data={data} />
+                        <TodoContainer>
+                            {data.data.map((todo) => (
+                                <OneTodo id={todo.idx} title={todo.title} content={todo.content} />
+                            ))}
+                        </TodoContainer>
+                        <Button onClick={handleOpenModal}>
+                            <img src={plusIcon} />
+                        </Button>
+                    </Container>
+                </Wrapper>
+            )}
+            {isOpenModal && <TodoModal setIsOpenModal={setIsOpenModal} />}
         </>
     );
 };

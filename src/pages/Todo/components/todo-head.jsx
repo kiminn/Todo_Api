@@ -2,17 +2,17 @@ import styled from 'styled-components';
 import moment from 'moment';
 import 'moment/locale/ko';
 
-const TodoHead = ({ todoList }) => {
+const TodoHead = ({ data }) => {
     const today = moment().format('YYYY년 MM월 DD일');
     const day = moment().format('dddd');
-    console.log(today);
+
 
     return (
         <Container>
             <Today>{today}</Today>
             <Day>{day}</Day>
             <br />
-            <TodoCount>할 일이 {todoList.length}개 남았어요</TodoCount>
+            <TodoCount>할 일이 {data?.data.length}개 남았어요</TodoCount>
         </Container>
     );
 };

@@ -5,18 +5,13 @@ import { useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import TodoQueryApi from '../../../apis/todo.query.api';
 import QueryKey from '../../../consts/query-key';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const OneTodo = ({ todo, todoList, setTodoList }) => {
+const OneTodo = ({ title, content, id }) => {
     const [isEdit, setIsEdit] = useState(false);
     const todoContentInput = useRef(null);
     const navigate = useNavigate();
-
-    // const onDeleteTodo = (el) => {
-    //     const delete_list = todoList.filter((item) => item.id !== el);
-    //     setTodoList(delete_list);
-    // };
-
+    // const { id } = useParams();
     const queryClient = useQueryClient();
     const deleteData = TodoQueryApi.deleteTodo(id, () => queryClient.invalidateQueries([QueryKey.todoData]));
 
@@ -26,33 +21,36 @@ const OneTodo = ({ todo, todoList, setTodoList }) => {
     // 이는 데이터 업데이트 및 UI의 즉각적인 반영을 쉽게 처리할 수 있는 강력한 메커니즘 중 하나입니다.
 
     const onDeleteTodo = () => {
+        // deleteDate호출하며 비동기적으로 데이터 삭제
         deleteData.mutateAsync();
-        alert('지웁니다?');
         setTimeout(() => {
             navigate('/todo');
         }, 1500);
     };
 
-    const onEditTodo = (el) => {
-        if (!isEdit) return setIsEdit(true);
-        if (window.confirm('정말 수정하시겠습니까?')) {
-            setTodoList((todoList) => {
-                const update_todo = todoList.find((item) => item.id === el);
-                update_todo.content = todoContentInput.current.value;
-                return todoList;
-            });
-            setIsEdit(false);
-        }
-    };
+    // const onEditTodo = (el) => {
+    //     if (!isEdit) return setIsEdit(true);
+    //     if (window.confirm('정말 수정하시겠습니까?')) {
+    //         setTodoList((todoList) => {
+    //             const update_todo = todoList.find((item) => item.id === el);
+    //             update_todo.content = todoContentInput.current.value;
+    //             return todoList;
+    //         });
+    //         setIsEdit(false);
+    //     }
+    // };
 
     return (
         <Wrapper>
             <ContentBox>
-                {isEdit ? <EditInput defaultValue={todo.content} ref={todoContentInput} /> : todo.content}
+                <Title>title:{isEdit ? <EditInput defaultValue={title} ref={todoContentInput} /> : title}</Title>
+                <Content>
+                    content:{isEdit ? <EditInput defaultValue={content} ref={todoContentInput} /> : content}
+                </Content>
             </ContentBox>
             <IconBox>
                 <EditIcon src={editIcon} onClick={() => onEditTodo()} />
-                <DeleteIcon src={closeIcon} onClick={() => onDeleteTodo(todo.id)} />
+                <DeleteIcon src={closeIcon} onClick={() => onDeleteTodo()} />
             </IconBox>
         </Wrapper>
     );
@@ -69,6 +67,9 @@ const Wrapper = styled.div`
 const ContentBox = styled.div`
     padding: 30px 0px;
 `;
+
+const Title = styled.div``;
+const Content = styled.div``;
 
 const EditIcon = styled.img`
     width: 25px;
