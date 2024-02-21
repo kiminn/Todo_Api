@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import TodoApi from '../../../apis/todo.api';
 import { useForm } from 'react-hook-form';
 import TodoQueryApi from '../../../apis/todo.query.api';
+import QueryKey from '../../../consts/query-key';
 
 const TodoModal = ({ setTodoList, setIsOpenModal }) => {
     const {
@@ -16,12 +17,10 @@ const TodoModal = ({ setTodoList, setIsOpenModal }) => {
 
     const { mutate } = useMutation((todoData) => TodoApi.addTodo(todoData), {
         onSuccess: async () => {
-            // 'tasks' 쿼리의 캐시를 무효화하여 강제로 다시 불러옴
-            await queryClient.invalidateQueries(['todo']);
+            await queryClient.invalidateQueries([QueryKey.todoData]);
         },
     });
 
-    //?ㅠㅠㅠJane님😇
     const onAddTodo = handleSubmit((data) => {
         const { title, content } = data;
         try {
@@ -29,8 +28,6 @@ const TodoModal = ({ setTodoList, setIsOpenModal }) => {
                 title,
                 content,
             };
-            console.log('target', todoList);
-            // mutate를 호출하면 즉시반환
             mutate(todoList);
             setIsOpenModal(false);
         } catch (error) {

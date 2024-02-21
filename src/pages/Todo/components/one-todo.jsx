@@ -21,24 +21,23 @@ const OneTodo = ({ title, content, id }) => {
     // 이는 데이터 업데이트 및 UI의 즉각적인 반영을 쉽게 처리할 수 있는 강력한 메커니즘 중 하나입니다.
 
     const onDeleteTodo = () => {
-        // deleteDate호출하며 비동기적으로 데이터 삭제
         deleteData.mutateAsync();
         setTimeout(() => {
             navigate('/todo');
         }, 1500);
     };
 
-    // const onEditTodo = (el) => {
-    //     if (!isEdit) return setIsEdit(true);
-    //     if (window.confirm('정말 수정하시겠습니까?')) {
-    //         setTodoList((todoList) => {
-    //             const update_todo = todoList.find((item) => item.id === el);
-    //             update_todo.content = todoContentInput.current.value;
-    //             return todoList;
-    //         });
-    //         setIsEdit(false);
-    //     }
-    // };
+    const onEditTodo = () => {
+        if (!isEdit) return setIsEdit(true);
+        if (window.confirm('정말 수정하시겠습니까?')) {
+            setTodoList((todoList) => {
+                const update_todo = todoList.find((item) => item.id === el);
+                update_todo.content = todoContentInput.current.value;
+                return todoList;
+            });
+            setIsEdit(false);
+        }
+    };
 
     return (
         <Wrapper>

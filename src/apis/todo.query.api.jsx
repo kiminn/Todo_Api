@@ -9,6 +9,8 @@ const TodoQueryApi = {
     addTodo: (todoData) => {
         useMutateData(() => TodoApi.addTodo(todoData), [QueryKey.todoData]);
     },
+    editTodo: (todoData, todoId, successFn) =>
+        useMutateData(() => TodoApi.editTodo(todoData, todoId), [QueryKey.todoData, todoId], successFn),
 };
 
 export default TodoQueryApi;
