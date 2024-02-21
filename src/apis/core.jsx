@@ -2,18 +2,14 @@ import axios from 'axios';
 import TokenRepository from '../repositories/token-repository';
 
 export const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URL,
-    withCredentials: true, 
+    baseURL: `https://topdragon.co.kr/`,
+    withCredentials: true,
     // header에 authorization이 있는 항목을 요청할 때
 });
 
-/**
- * axiosInstance를 사용하는 모든 요청에대해서 저 행위를 한다
- */
-// interceptor.response 응답을 가로챔 / request: 요청
-// use안에서 axiosInstance의 요청의 설정을 가져온것 -> 요청의 header에 token을 심겠다
 axiosInstance.interceptors.request.use(function (config) {
     const token = TokenRepository.getToken();
+    console.log(token);
     config.headers.Authorization = token ? `Bearer ${token}` : '';
     return config;
 });
@@ -38,7 +34,7 @@ axiosInstance.interceptors.request.use(function (config) {
  */
 
 /**
- * withCredentials: true는 XMLHttpRequest나 Fetch API를 사용하여 서버로 HTTP 요청을 보낼 때, 
- * 해당 요청에 인증 정보(credentials)를 포함시키도록 지정하는 옵션입니다. 
+ * withCredentials: true는 XMLHttpRequest나 Fetch API를 사용하여 서버로 HTTP 요청을 보낼 때,
+ * 해당 요청에 인증 정보(credentials)를 포함시키도록 지정하는 옵션입니다.
  * 이 옵션을 사용하는 이유는 주로 Cross-Origin 요청 시에 쿠키와 같은 인증 정보를 함께 전송하기 위함입니다.
  */

@@ -16,13 +16,10 @@ const SignUpForm = () => {
     const onSubmitSignUp = handleSubmit(async (data) => {
         console.log('signInData', data);
         try {
-            const res = await AuthApi.signUp(data.email, data.password);
-            if (res && res.status === 200) {
-                console.log(res);
-            }
-            return res;
+            await AuthApi.signUp(data.email, data.pw);
+            alert('축하합니다! 회원가입이 완료 되었습니다 :)');
         } catch (error) {
-            console.error(error);
+            alert('잘못된 접근입니다');
         }
     });
 

@@ -22,13 +22,11 @@ const SignInForm = () => {
     const onSubmitSignIn = handleSubmit(async (data) => {
         try {
             const res = await AuthApi.signIn(data.email, data.password);
-            console.log('res', res);
             signIn(res.token);
-            console.log(res.token);
             navigate('/todo');
             return res;
         } catch (error) {
-            console.error(error);
+            throw new Error('잘못된 접근입니다');
         }
     });
 

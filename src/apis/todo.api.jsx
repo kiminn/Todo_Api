@@ -3,7 +3,7 @@ import { axiosInstance } from './core';
 const PATH = '/todo';
 
 const TodoApi = {
-    deleteTodo: async (todoId) => await axiosInstance.delete(PATH + `${todoId}`),
+    deleteTodo: async (todoId) => await axiosInstance.delete(PATH + `/${todoId}`),
     addTodo: async (todoData) => await axiosInstance.post(PATH, todoData),
     getTodo: async () => await axiosInstance.get(PATH),
     editTodo: async (todoData) => await axiosInstance.patch(PATH, todoData),
